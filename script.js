@@ -1,45 +1,55 @@
-function showMessage(response) {
-  if (response === "No") {
-    const noButton = document.getElementById("no-button");
-    const container = document.querySelector(".container");
+document.addEventListener("DOMContentLoaded", function () {
+  const noButton = document.getElementById("no-button");
+  const yesButton = document.getElementById("yesButton");
+  const noMessage = document.getElementById("no-message");
+  const yesMessage = document.getElementById("yes-message");
+
+  noButton.addEventListener("mouseover", moveButton);
+  yesButton.addEventListener("click", handleYesButtonClick);
+
+  const audio = document.querySelector("audio");
+
+  // Play the audio
+  audio.play();
+
+  function moveButton() {
     const maxWidth = window.innerWidth - noButton.offsetWidth;
     const maxHeight = window.innerHeight - noButton.offsetHeight;
 
-    // Set button position to absolute
-    noButton.style.position = "absolute";
+    // Set the maximum values for the button movement
+    const maxMoveWidth = 300; // Adjust the maximum horizontal movement
+    const maxMoveHeight = 250; // Adjust the maximum vertical movement
 
-    // Change image source to "gun.gif"
-    document.getElementsByClassName("image")[0].src = "images/gun.gif";
+    const randomX = Math.floor(Math.random() * Math.min(maxWidth, maxMoveWidth));
+    const randomY = Math.floor(Math.random() * Math.min(maxHeight, maxMoveHeight));
 
-    // Generate random coordinates within the visible container
-    const randomX = Math.max(0, Math.floor(Math.random() * maxWidth));
-    const randomY = Math.max(0, Math.floor(Math.random() * maxHeight));
-
-    // Apply new coordinates to the button
     noButton.style.left = randomX + "px";
     noButton.style.top = randomY + "px";
 
-    // Update text content and hide name message
-    document.getElementById("question").textContent =
-      "The no button is just for visuals";
+    // Additional animations
+    noButton.classList.add("move");
+    setTimeout(() => {
+      noButton.classList.remove("move");
+    }, 500);
+  }
+
+  function handleYesButtonClick() {
+    // Remove unnecessary elements
     document.getElementById("name").style.display = "none";
+    yesButton.remove();
 
-    // Optional: You can also add a timeout to reset the position after a few seconds
-  }
-
-  if (response === "Yes") {
-    // Remove name message and no button
-    document.getElementById("name").remove();
-    document.getElementById("no-button").remove();
-
-    // Update text content, show message, and change image source to "dance.gif"
-    const yesMessage = document.getElementById("question");
-    yesMessage.textContent = "LESGOOO see you on the 14th babygirl😘😘";
+    // Show Yes message with animation
     yesMessage.style.display = "block";
-    yesMessage.style.fontStyle = "normal";
-    document.getElementsByClassName("image")[0].src = "images/dance.gif";
+    yesMessage.classList.add("fadeIn");
 
-    // Remove yes button
-    document.getElementById("yesButton").remove();
+    // Play audio
+    const audio = new Audio("./media/song1.mp3");
+    audio.play();
+
+    // Additional animations
+    setTimeout(() => {
+      yesMessage.classList.remove("fadeIn");
+    }, 1000);
+
   }
-}
+});

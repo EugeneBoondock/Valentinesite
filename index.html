@@ -9,24 +9,86 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="Mainprompt">
-            <img class="image" src="images/catflower.jpg"></img>
-            <h1 class="hh" id="name">Hey beautiful!</h1>
-            <p class="pp" id="question">Will you be my Valentine?</p>
-            <div class="buttons">
-                <button id="no-button" onclick="showMessage('No')">No</button>
-                <button onclick="showMessage('Yes')" id="yesButton">Yes</button>
-            </div>
-            <div class="hidden-message" id="no-message">
-                <p>Nice try, but you can't escape that easily!</p>
-            </div>
-            <div class="hidden-message" id="yes-message">
-                <p>YAY! See you on the 14th, babygirl.</p>
-            </div>
+    <div id="door-prompt">
+        <img id="door" src="images/door.jpeg" alt="Door" onclick="openDoor()">
+        <div id="prompt">
+            <p>Do you want to enter?</p>
+            <button onclick="openDoor()">Yes</button>
         </div>
     </div>
+
+    <div id="main-content" style="display: none;">
+        <div class="container">
+            <div class="Mainprompt">
+                <img class="image4" src="images/nkechi2.jpg">
+                <img class="image" src="images/catflower.jpg">
+                <img class="image2" src="images/cat2.gif">
+                <img class="image3" src="images/nkechi.jpg">
+                <h1 class="hh" id="name">Hey My Pus Pus!!</h1>
+                <p class="pp" id="question">Will you be my Valentine?</p>
+                <div class="buttons">
+                    <button id="no-button" onclick="showMessage('No')">No</button>
+                    <button onclick="showMessage('Yes')" id="yesButton">Yes</button>
+                </div>
+                <div class="hidden-message" id="yes-message">
+                    <p>Aww my Princess, we're still in our Universe my Baby!!! <br> I love you so much. <br>
+                    It's only us in the whole universe remember...</p>
+                </div>
+            </div>
+            <audio>
+                <source src="./media/song1.mp3" type="mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+
+    <script>
+        function openDoor() {
+            document.getElementById("door-prompt").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+        }
+
+        function showMessage(response) {
+            if (response === "No") {
+                const noButton = document.getElementById("no-button");
+                const questionText = document.getElementById("question");
+
+                // Change image source to "gun.gif"
+                document.getElementsByClassName("image")[0].src = "images/gun.gif";
+
+                // Update text content
+                questionText.textContent = "We're already dating, you can't say no lol...";
+
+                // Hide the No button and question text
+                noButton.style.display = "none";
+                questionText.style.display = "none";
+            }
+
+            if (response === "Yes") {
+                // Remove unnecessary elements
+                document.getElementById("name").style.display = "none";
+                document.getElementById("question").style.display = "none";
+                document.getElementById("no-button").style.display = "none";
+                document.querySelector(".image").src = "images/dance.gif";
+                
+                // Show Yes message with animation
+                const yesMessage = document.getElementById("yes-message");
+                yesMessage.style.display = "block";
+                yesMessage.classList.add("fadeIn");
+
+                // Play audio
+                const audio = new Audio("./media/song1.mp3");
+                audio.play();
+
+                // Additional animations
+                setTimeout(() => {
+                    yesMessage.classList.remove("fadeIn");
+                }, 1000);
+            }
+        }
+    </script>
 </body>
 
 </html>
